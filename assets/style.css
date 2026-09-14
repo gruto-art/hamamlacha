@@ -214,6 +214,23 @@ body::before {
   overflow-wrap: break-word;
 }
 
+/* Hero dedication + tagline: absolutely positioned after particle word
+   JS computes --word-bottom (px from top of hero) and sets it on #hero */
+.hero__dedication {
+  position: absolute;
+  top: calc(var(--word-bottom, 60%) + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  opacity: 0;
+  white-space: nowrap;
+  /* JS fades this in after particles settle */
+  z-index: 3;
+}
+
 .hero__tagline {
   font-family: var(--f-body);
   font-weight: 300;
@@ -221,17 +238,15 @@ body::before {
   color: var(--c-parchment);
   max-width: 500px;
   margin: 0 auto;
-}
-
-/* Hero dedication line — "ע״ש יעקב ורבקה מלכה" */
-.hero__dedication {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  margin-bottom: 1.2rem;
+  position: absolute;
+  top: calc(var(--word-bottom, 60%) + 18px + 2.4em + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 90%;
+  z-index: 3;
   opacity: 0;
-  /* JS fades this in after particles settle */
+  /* JS fades in after dedication */
 }
 
 .hero__dedication-text {
@@ -252,8 +267,27 @@ body::before {
   flex-shrink: 0;
 }
 
-.no-js .hero__dedication {
+/* No-JS fallback: normal flow */
+.no-js .hero__dedication,
+.no-js .hero__tagline {
+  position: static;
   opacity: 1;
+  transform: none;
+  margin: 0 auto;
+}
+.no-js .hero__dedication {
+  margin-bottom: 1.2rem;
+}
+.no-js .hero__tagline {
+  margin-top: 1rem;
+}
+
+/* Reduced-motion: show immediately in flow */
+@media (prefers-reduced-motion: reduce) {
+  .hero__dedication,
+  .hero__tagline {
+    opacity: 1 !important;
+  }
 }
 
 .hero__scroll-hint {
@@ -578,39 +612,51 @@ body::before {
 /* --------------------------------------------------------------------------
    9. CHAPTERS
    -------------------------------------------------------------------------- */
+/* ============================================================
+   9. CHAPTERS — 4-column editorial grid (desktop) / stacked (mobile)
+   No pin. No horizontal scroll.
+   ============================================================ */
 #chapters {
-  overflow: hidden;
+  padding-block: 9vh;
+  padding-inline: var(--section-padding-x);
+  max-width: var(--max-width);
+  margin: 0 auto;
   position: relative;
 }
 
 .chapters__track {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
+/* Mobile: stacked, each chapter padded, hairline separators */
 .chapter {
   width: 100%;
-  min-height: 72vh;
+  padding-block: 5vh;
+  padding-inline: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: var(--section-padding-y) var(--section-padding-x);
+  justify-content: flex-start;
   position: relative;
-  border-bottom: 1px solid rgba(201, 162, 74, 0.15); /* Hairline separator */
+  border-bottom: 1px solid rgba(201, 162, 74, 0.2);
+  opacity: 0;
+  transform: translateY(32px);
 }
 
 .chapter:last-child {
   border-bottom: none;
 }
 
+/* Ghost number behind title */
 .chapter__number {
   font-family: var(--f-display);
-  font-size: clamp(8rem, 20vw, 15rem);
+  font-size: clamp(6rem, 9vw, 9rem);
   color: var(--c-gold);
   opacity: 0.1;
   position: absolute;
   top: 50%;
-  right: 5%;
+  right: 0;
   transform: translateY(-50%);
   pointer-events: none;
   line-height: 1;
@@ -618,33 +664,75 @@ body::before {
 
 .chapter__title {
   font-family: var(--f-display);
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
   color: var(--c-parchment);
   position: relative;
   z-index: 2;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1;
 }
 
 .chapter__text {
   font-family: var(--f-body);
   font-weight: 300;
-  font-size: 1.1rem;
-  max-width: 400px;
+  font-size: 1rem;
+  max-width: 340px;
   color: var(--c-parchment);
   opacity: 0.8;
   position: relative;
   z-index: 2;
+  line-height: 1.7;
 }
 
 .chapter__deco {
-  position: absolute;
-  bottom: 10%;
-  right: var(--section-padding-x);
-  width: 50px;
-  height: 1px;
-  background-color: var(--c-gold);
-  opacity: 0.5;
+  display: none;
+}
+
+/* Desktop ≥768px: 4-column grid */
+@media (min-width: 768px) {
+  #chapters {
+    padding-block: 9vh;
+  }
+
+  .chapters__track {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    align-items: start;
+  }
+
+  .chapter {
+    padding-block: 0;
+    padding-inline: clamp(1rem, 2.5vw, 2.5rem);
+    border-bottom: none;
+    /* Gold hairline between columns */
+    border-right: 1px solid rgba(201, 162, 74, 0.2);
+    min-height: 0;
+  }
+
+  .chapter:first-child {
+    padding-inline-start: 0;
+  }
+
+  .chapter:last-child {
+    border-right: none;
+    padding-inline-end: 0;
+  }
+
+  .chapter__number {
+    font-size: clamp(6rem, 9vw, 9rem);
+    right: clamp(0.5rem, 1.5vw, 1.5rem);
+    top: -0.2em;
+    transform: none;
+  }
+
+  .chapter__title {
+    font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+    margin-top: 3.5rem; /* space below ghost number */
+  }
+
+  .chapter__text {
+    max-width: 100%;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1051,10 +1139,14 @@ body::before {
   letter-spacing: 0.08em;
   white-space: nowrap;
   text-align: center;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6);
   line-height: 1;
   display: block;
   pointer-events: none;
+  background: rgba(13, 12, 10, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 4px 10px 6px;
+  border-radius: 14px;
 }
 
 @media (max-width: 767px) {
@@ -1169,21 +1261,6 @@ body::before {
     margin-bottom: 0;
   }
 
-  /* Chapters Horizontal Layout */
-  .chapters__track {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    /* Height and scrolling controlled by GSAP ScrollTrigger */
-  }
-  .chapter {
-    min-width: 100vw; /* Using viewport width specifically for horizontal scrolling panels */
-    flex-shrink: 0;
-    border-bottom: none;
-    border-left: 1px solid rgba(201, 162, 74, 0.15); /* Left border for RTL */
-  }
-  .chapter:first-child {
-    border-left: none;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -1229,9 +1306,18 @@ body::before {
 /* --------------------------------------------------------------------------
    16. MOBILE COMPOSITION (<768px)
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   16. MOBILE COMPOSITION (<768px) — tight spacing, no voids >15vh
+   -------------------------------------------------------------------------- */
 @media (max-width: 767px) {
-  #brothers { min-height: 0; }
-  .brothers__stage { height: 125vh; min-height: 0; }
+  /* ---- Global section padding reduction ---- */
+  :root {
+    --section-padding-y: clamp(2.5rem, 8vh, 5rem);
+  }
+
+  /* ---- Brothers: reduced from 125vh to ~95vh ---- */
+  #brothers { min-height: 0; padding-block: 4vh; }
+  .brothers__stage { height: 95vh; min-height: 0; }
   .brothers__initial { font-size: 44vw; }
   .brothers__initial--daniel { top: 6%; right: 2%; }
   .brothers__initial--elchanan { top: 44%; left: 2%; }
@@ -1239,8 +1325,23 @@ body::before {
   .brothers__bio--daniel { top: 2%; right: 0; }
   .brothers__bio--elchanan { top: 40%; left: 0; }
 
-  .chapter { min-height: auto; padding-block: 7vh; }
-  .chapter__number { font-size: clamp(7rem, 40vw, 10rem); }
+  /* ---- Memorial ---- */
+  #memorial { padding-block: 6vh; }
+  .memorial__intro { margin-bottom: 2.5rem; }
+
+  /* ---- Chapters ---- */
+  #chapters { padding-block: 4vh; }
+  .chapter { padding-block: 4vh; }
+  .chapter__number { font-size: clamp(5rem, 35vw, 8rem); }
+
+  /* ---- Activity ---- */
+  #activity { padding-block: 5vh; }
+
+  /* ---- Marquee ---- */
+  #marquee { padding: 2rem 0; }
+
+  /* ---- Donate ---- */
+  #donate { min-height: auto; padding-block: 8vh; }
 
   .donate__btn-ring { width: calc(100% + 64px); height: calc(100% + 64px); }
   .donate__btn-wrap { margin-block: 32px; }

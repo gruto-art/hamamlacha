@@ -226,12 +226,25 @@ class ParticleSystem {
     const data = c.getImageData(0, 0, this.w, this.h).data;
     const pts = [];
     const gap = 2; // Denser
+    let maxY = 0;
     for (let y = 0; y < this.h; y += gap) {
       for (let x = 0; x < this.w; x += gap) {
-        if (data[(y * this.w + x) * 4 + 3] > 128) pts.push({ x, y });
+        if (data[(y * this.w + x) * 4 + 3] > 128) {
+          pts.push({ x, y });
+          if (y > maxY) maxY = y;
+        }
       }
     }
+    // Expose word bottom to CSS so dedication/tagline can position below
+    this._setWordBottom(maxY);
     return pts;
+  }
+
+  _setWordBottom(maxY) {
+    const hero = document.getElementById('hero');
+    if (!hero) return;
+    // maxY is in canvas logical pixels (same as CSS px since we use clientWidth/Height)
+    hero.style.setProperty('--word-bottom', maxY + 'px');
   }
 
   init() {
@@ -393,7 +406,12 @@ function initManifesto() {
   if (!el) return;
 
   // Read gold keywords from data attribute
-  const goldWords = (el.dataset.gold || '').split(',').map(w => w.trim());
+  const goldWords = (el.dataset.gold || '').split(',').map(w => w.trim()).filter(Boolean);
+
+  /** Strip trailing/leading punctuation (geresh, maqaf, colon, comma, period, dash, ״) */
+  function stripPunct(s) {
+    return s.replace(/^[\u05F3\u05F4\u201C\u201D"'«»\-–—:,.؟،؛!?]+|[\u05F3\u05F4\u201C\u201D"'«»\-–—:,.؟،؛!?]+$/gu, '');
+  }
 
   // Split text into word spans
   const rawText = el.textContent;
@@ -406,8 +424,9 @@ function initManifesto() {
     const span = document.createElement('span');
     span.classList.add('word');
     span.textContent = token;
-    // Check if any gold keyword is contained in this word
-    const isGold = goldWords.some(gw => gw && token.includes(gw));
+    // Exact-token match: strip punctuation from both token and keyword
+    const stripped = stripPunct(token);
+    const isGold = goldWords.some(gw => gw && stripPunct(gw) === stripped);
     if (isGold) {
       span.classList.add('word--gold');
     }
@@ -512,62 +531,36 @@ function initBrothers() {
 }
 
 /* ==========================================================================
-   10. HORIZONTAL CHAPTERS (desktop pin, mobile vertical)
+   10. CHAPTERS — staggered fade-up reveal (editorial grid, no pin)
    ========================================================================== */
-let chaptersTrigger = null;
-
 function initChapters() {
-  buildChapters();
-  // Rebuild on resize crossing 768px
-  window.addEventListener('resize', debounce(() => {
-    if (chaptersTrigger) { chaptersTrigger.kill(); chaptersTrigger = null; }
-    ScrollTrigger.getAll().forEach(t => {
-      if (t.vars?.trigger === '#chapters') t.kill();
-    });
-    buildChapters();
-  }, 250));
-}
-
-function buildChapters() {
-  const track = document.querySelector('.chapters__track');
   const panels = gsap.utils.toArray('.chapter');
-  if (!track || !panels.length) return;
+  if (!panels.length) return;
 
-  if (REDUCED_MOTION) return;
-
-  const isDesktop = window.innerWidth >= 768;
-
-  if (isDesktop) {
-    // Horizontal pinned scroll
-    const totalScroll = () => track.scrollWidth - window.innerWidth;
-
-    chaptersTrigger = gsap.to(track, {
-      x: () => +(track.scrollWidth - window.innerWidth),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#chapters',
-        pin: true,
-        scrub: 1,
-        end: () => '+=' + (track.scrollWidth - window.innerWidth),
-        invalidateOnRefresh: true,
-      },
-    }).scrollTrigger;
-
-  } else {
-    // Mobile — fade-up reveals
+  if (REDUCED_MOTION) {
+    // Show immediately — CSS opacity:0 already set so we override
     panels.forEach(panel => {
-      gsap.from(panel, {
-        opacity: 0,
-        y: 40,
-        duration: 0.7,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: panel,
-          start: 'top 85%',
-        }
-      });
+      panel.style.opacity = '1';
+      panel.style.transform = 'none';
     });
+    return;
   }
+
+  // Staggered fade-up: each chapter triggers individually, fires once
+  panels.forEach((panel, i) => {
+    gsap.to(panel, {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: panel,
+        start: 'top 85%',
+        once: true,
+      },
+      delay: i * 0.08, // slight stagger within same viewport
+    });
+  });
 }
 
 /* ==========================================================================
@@ -896,21 +889,32 @@ function initSignatures() {
 }
 
 /* ==========================================================================
-   14. HERO DEDICATION — fade in after particles settle (~2s)
+   14. HERO DEDICATION — fade in after particles settle (~2s), tagline after
    ========================================================================== */
 function initHeroDedication() {
   const ded = document.querySelector('.hero__dedication');
-  if (!ded) return;
+  const tagline = document.querySelector('.hero__tagline');
   if (REDUCED_MOTION) {
-    ded.style.opacity = '1';
+    if (ded) ded.style.opacity = '1';
+    if (tagline) tagline.style.opacity = '1';
     return;
   }
-  gsap.to(ded, {
-    opacity: 1,
-    duration: 1.2,
-    ease: 'power2.out',
-    delay: 2,
-  });
+  if (ded) {
+    gsap.to(ded, {
+      opacity: 1,
+      duration: 1.2,
+      ease: 'power2.out',
+      delay: 2,
+    });
+  }
+  if (tagline) {
+    gsap.to(tagline, {
+      opacity: 1,
+      duration: 1,
+      ease: 'power2.out',
+      delay: 2.6,
+    });
+  }
 }
 
 /* ==========================================================================
