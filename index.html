@@ -109,7 +109,7 @@
         <!-- Crown at convergence -->
         <path class="brothers__path brothers__path--crown" d="M460,250 L475,220 L485,240 L500,210 L515,240 L525,220 L540,250" stroke-width="2.5"/>
       </svg>
-      <svg class="brothers-svg brothers-svg--mobile" viewBox="0 0 500 1000" preserveAspectRatio="xMidYMid meet" fill="none" stroke="#C9A24A" stroke-width="2" aria-hidden="true">
+      <svg class="brothers-svg brothers-svg--mobile" viewBox="0 0 500 1000" preserveAspectRatio="xMidYMax meet" fill="none" stroke="#C9A24A" stroke-width="2" aria-hidden="true">
         <path class="brothers__path brothers__path--right" d="M350,180 C350,400 320,550 290,750"/>
         <path class="brothers__path brothers__path--left" d="M150,550 C150,650 180,700 210,750"/>
         <path class="brothers__path brothers__path--crown" d="M210,750 L225,720 L235,740 L250,710 L265,740 L275,720 L290,750" stroke-width="2.5"/>
@@ -220,48 +220,67 @@
         <p class="activity__text">כחלק מפעילות החסד, הממלכה מפעילה גמ״ח להשאלת כיסויי כיסאות מפוארים לאירועים, כדי שכל משפחה תוכל לחגוג את שמחתה בהדר ובכבוד. הגמ״ח פועל לזכרם של יעקב ורבקה מלכה זיע״א, וממשיך את דרכם בנתינה.</p>
       </div>
       <div class="activity__illustration" aria-hidden="true">
-        <svg viewBox="0 0 560 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Floor line -->
-          <line class="chair-floor" x1="10" y1="150" x2="550" y2="150" stroke="#C9A24A" stroke-width="1"/>
-          
-          <!-- Chair 1 -->
-          <g class="chair-group">
-            <path class="chair-line" d="M60,150 L50,80 C48,60 55,40 65,20 C75,10 95,10 105,20 C115,40 122,60 120,80 L110,150" stroke="#F2EBDD" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="chair-line" d="M52,70 C65,75 105,75 118,70" stroke="#F2EBDD" stroke-width="1.5"/>
-            <path class="chair-line" d="M75,20 L75,140 M95,20 L95,140" stroke="#F2EBDD" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
-            <path class="chair-sash" d="M65,80 C75,85 95,85 105,80 L105,90 C95,95 75,95 65,90 Z" fill="#C9A24A"/>
+        <svg viewBox="0 0 560 210" fill="none" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <line class="chair-floor" x1="0" y1="200" x2="560" y2="200" stroke="#C9A24A" stroke-width="1" opacity=".7"/>
+          <g class="chair-group" transform="translate(20,0)">
+            <path class="chair-line" d="M22,104 L27,24 Q28,15 37,15 H63 Q72,15 73,24 L78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q50,116 86,106" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q18,100 22,104 M86,106 Q82,100 78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q12,140 9,198 M86,106 Q88,140 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M9,198 Q50,193 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line chair-pleat" d="M30,116 Q29,156 27,194 M50,118 V194 M70,116 Q71,156 73,194" stroke="#F2EBDD" stroke-width="1" opacity=".45"/>
+            <path class="chair-sash" d="M25,64 Q50,71 75,64 L75.6,74 Q50,81 24.4,74 Z" fill="#C9A24A" stroke="none"/>
+            <path class="chair-sash" d="M50,72 C40,58 29,64 35,76 C39,83 46,79 50,72 Z M50,72 C60,58 71,64 65,76 C61,83 54,79 50,72 Z" fill="#E8CF8A" stroke="#C9A24A" stroke-width=".8"/>
+            <path class="chair-sash" d="M48.5,75 Q45,88 40,100 M51.5,75 Q55,88 60,100" stroke="#C9A24A" stroke-width="2.2"/>
+            <circle class="chair-sash" cx="50" cy="73" r="3.2" fill="#C9A24A" stroke="none"/>
           </g>
-          
-          <!-- Chair 2 -->
-          <g class="chair-group" transform="translate(85, 0)">
-            <path class="chair-line" d="M60,150 L50,80 C48,60 55,40 65,20 C75,10 95,10 105,20 C115,40 122,60 120,80 L110,150" stroke="#F2EBDD" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="chair-line" d="M52,70 C65,75 105,75 118,70" stroke="#F2EBDD" stroke-width="1.5"/>
-            <path class="chair-line" d="M75,20 L75,140 M95,20 L95,140" stroke="#F2EBDD" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
-            <path class="chair-sash" d="M65,80 C75,85 95,85 105,80 L105,90 C95,95 75,95 65,90 Z" fill="#C9A24A"/>
+          <g class="chair-group" transform="translate(126,0)">
+            <path class="chair-line" d="M22,104 L27,24 Q28,15 37,15 H63 Q72,15 73,24 L78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q50,116 86,106" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q18,100 22,104 M86,106 Q82,100 78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q12,140 9,198 M86,106 Q88,140 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M9,198 Q50,193 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line chair-pleat" d="M30,116 Q29,156 27,194 M50,118 V194 M70,116 Q71,156 73,194" stroke="#F2EBDD" stroke-width="1" opacity=".45"/>
+            <path class="chair-sash" d="M25,64 Q50,71 75,64 L75.6,74 Q50,81 24.4,74 Z" fill="#C9A24A" stroke="none"/>
+            <path class="chair-sash" d="M50,72 C40,58 29,64 35,76 C39,83 46,79 50,72 Z M50,72 C60,58 71,64 65,76 C61,83 54,79 50,72 Z" fill="#E8CF8A" stroke="#C9A24A" stroke-width=".8"/>
+            <path class="chair-sash" d="M48.5,75 Q45,88 40,100 M51.5,75 Q55,88 60,100" stroke="#C9A24A" stroke-width="2.2"/>
+            <circle class="chair-sash" cx="50" cy="73" r="3.2" fill="#C9A24A" stroke="none"/>
           </g>
-
-          <!-- Chair 3 -->
-          <g class="chair-group" transform="translate(170, 0)">
-            <path class="chair-line" d="M60,150 L50,80 C48,60 55,40 65,20 C75,10 95,10 105,20 C115,40 122,60 120,80 L110,150" stroke="#F2EBDD" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="chair-line" d="M52,70 C65,75 105,75 118,70" stroke="#F2EBDD" stroke-width="1.5"/>
-            <path class="chair-line" d="M75,20 L75,140 M95,20 L95,140" stroke="#F2EBDD" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
-            <path class="chair-sash" d="M65,80 C75,85 95,85 105,80 L105,90 C95,95 75,95 65,90 Z" fill="#C9A24A"/>
+          <g class="chair-group" transform="translate(232,0)">
+            <path class="chair-line" d="M22,104 L27,24 Q28,15 37,15 H63 Q72,15 73,24 L78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q50,116 86,106" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q18,100 22,104 M86,106 Q82,100 78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q12,140 9,198 M86,106 Q88,140 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M9,198 Q50,193 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line chair-pleat" d="M30,116 Q29,156 27,194 M50,118 V194 M70,116 Q71,156 73,194" stroke="#F2EBDD" stroke-width="1" opacity=".45"/>
+            <path class="chair-sash" d="M25,64 Q50,71 75,64 L75.6,74 Q50,81 24.4,74 Z" fill="#C9A24A" stroke="none"/>
+            <path class="chair-sash" d="M50,72 C40,58 29,64 35,76 C39,83 46,79 50,72 Z M50,72 C60,58 71,64 65,76 C61,83 54,79 50,72 Z" fill="#E8CF8A" stroke="#C9A24A" stroke-width=".8"/>
+            <path class="chair-sash" d="M48.5,75 Q45,88 40,100 M51.5,75 Q55,88 60,100" stroke="#C9A24A" stroke-width="2.2"/>
+            <circle class="chair-sash" cx="50" cy="73" r="3.2" fill="#C9A24A" stroke="none"/>
           </g>
-
-          <!-- Chair 4 -->
-          <g class="chair-group" transform="translate(255, 0)">
-            <path class="chair-line" d="M60,150 L50,80 C48,60 55,40 65,20 C75,10 95,10 105,20 C115,40 122,60 120,80 L110,150" stroke="#F2EBDD" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="chair-line" d="M52,70 C65,75 105,75 118,70" stroke="#F2EBDD" stroke-width="1.5"/>
-            <path class="chair-line" d="M75,20 L75,140 M95,20 L95,140" stroke="#F2EBDD" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
-            <path class="chair-sash" d="M65,80 C75,85 95,85 105,80 L105,90 C95,95 75,95 65,90 Z" fill="#C9A24A"/>
+          <g class="chair-group" transform="translate(338,0)">
+            <path class="chair-line" d="M22,104 L27,24 Q28,15 37,15 H63 Q72,15 73,24 L78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q50,116 86,106" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q18,100 22,104 M86,106 Q82,100 78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q12,140 9,198 M86,106 Q88,140 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M9,198 Q50,193 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line chair-pleat" d="M30,116 Q29,156 27,194 M50,118 V194 M70,116 Q71,156 73,194" stroke="#F2EBDD" stroke-width="1" opacity=".45"/>
+            <path class="chair-sash" d="M25,64 Q50,71 75,64 L75.6,74 Q50,81 24.4,74 Z" fill="#C9A24A" stroke="none"/>
+            <path class="chair-sash" d="M50,72 C40,58 29,64 35,76 C39,83 46,79 50,72 Z M50,72 C60,58 71,64 65,76 C61,83 54,79 50,72 Z" fill="#E8CF8A" stroke="#C9A24A" stroke-width=".8"/>
+            <path class="chair-sash" d="M48.5,75 Q45,88 40,100 M51.5,75 Q55,88 60,100" stroke="#C9A24A" stroke-width="2.2"/>
+            <circle class="chair-sash" cx="50" cy="73" r="3.2" fill="#C9A24A" stroke="none"/>
           </g>
-
-          <!-- Chair 5 -->
-          <g class="chair-group" transform="translate(340, 0)">
-            <path class="chair-line" d="M60,150 L50,80 C48,60 55,40 65,20 C75,10 95,10 105,20 C115,40 122,60 120,80 L110,150" stroke="#F2EBDD" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="chair-line" d="M52,70 C65,75 105,75 118,70" stroke="#F2EBDD" stroke-width="1.5"/>
-            <path class="chair-line" d="M75,20 L75,140 M95,20 L95,140" stroke="#F2EBDD" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
-            <path class="chair-sash" d="M65,80 C75,85 95,85 105,80 L105,90 C95,95 75,95 65,90 Z" fill="#C9A24A"/>
+          <g class="chair-group" transform="translate(444,0)">
+            <path class="chair-line" d="M22,104 L27,24 Q28,15 37,15 H63 Q72,15 73,24 L78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q50,116 86,106" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q18,100 22,104 M86,106 Q82,100 78,104" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M14,106 Q12,140 9,198 M86,106 Q88,140 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line" d="M9,198 Q50,193 91,198" stroke="#F2EBDD" stroke-width="1.5"/>
+            <path class="chair-line chair-pleat" d="M30,116 Q29,156 27,194 M50,118 V194 M70,116 Q71,156 73,194" stroke="#F2EBDD" stroke-width="1" opacity=".45"/>
+            <path class="chair-sash" d="M25,64 Q50,71 75,64 L75.6,74 Q50,81 24.4,74 Z" fill="#C9A24A" stroke="none"/>
+            <path class="chair-sash" d="M50,72 C40,58 29,64 35,76 C39,83 46,79 50,72 Z M50,72 C60,58 71,64 65,76 C61,83 54,79 50,72 Z" fill="#E8CF8A" stroke="#C9A24A" stroke-width=".8"/>
+            <path class="chair-sash" d="M48.5,75 Q45,88 40,100 M51.5,75 Q55,88 60,100" stroke="#C9A24A" stroke-width="2.2"/>
+            <circle class="chair-sash" cx="50" cy="73" r="3.2" fill="#C9A24A" stroke="none"/>
           </g>
         </svg>
       </div>

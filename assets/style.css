@@ -922,9 +922,12 @@ body::before {
 /* SVG Chair illustration */
 .activity__illustration {
   flex-shrink: 0;
-  width: 100%;
-  max-width: 560px;
+  width: min(560px, 100%);
   position: relative;
+}
+.activity__illustration > svg {
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 767px) {
@@ -934,8 +937,13 @@ body::before {
   }
 }
 
-.chair-sash {
+.js .chair-sash {
   opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .chair-sash {
+    opacity: 1 !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1205,6 +1213,11 @@ body::before {
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  background: rgba(13,12,10,.62);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding: 6px 12px 7px;
+  border-radius: 16px;
 }
 
 .scroll-crown svg {
@@ -1408,19 +1421,23 @@ body::before {
   }
 
   /* ---- Brothers: text above drawing, no overlap ---- */
-  #brothers { min-height: 0; padding-block: 4vh; padding-bottom: 10vh; }
-  .brothers__stage { display: flex; flex-direction: column; height: auto; min-height: 0; padding-bottom: 60vh; }
+  #brothers { min-height: 0; padding-block: 4vh; padding-bottom: 2vh; }
+  .brothers__stage { display: flex; flex-direction: column; height: auto; min-height: 0; padding-bottom: 44vh; }
   .brothers__bio { position: relative; max-width: 100%; margin: 0 0 2rem 0; top: auto; left: auto; right: auto; }
   
-  .brothers-svg { top: auto !important; bottom: 0 !important; height: 60vh !important; }
-  .brothers__initial { font-size: 44vw; top: auto !important; height: 60vh; line-height: 60vh; }
-  .brothers__initial--daniel { bottom: 30vh; right: 2%; }
+  .brothers-svg { top: auto !important; bottom: 0 !important; height: 44vh !important; }
+  .brothers__initial { font-size: 44vw; top: auto !important; height: 44vh; line-height: 44vh; }
+  .brothers__initial--daniel { bottom: 22vh; right: 2%; }
   .brothers__initial--elchanan { bottom: 0; left: 2%; }
 
   /* ---- Memorial ---- */
   #memorial { padding-block: 6vh; }
   .memorial__intro { margin-bottom: 2.5rem; }
-
+  .memorial__columns { gap: 0; }
+  .memorial__col { padding-block: 3vh; }
+  .memorial__divider { margin-block: 2.5rem; }
+  .memorial__candle { height: 56px; margin-bottom: 0.5rem; align-self: flex-start; }
+  .memorial__candle-flame { bottom: 56px; }
   /* ---- Chapters ---- */
   #chapters { padding-block: 4vh; }
   .chapter { padding-block: 4vh; }
