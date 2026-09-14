@@ -59,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // If libraries didn't load, still show content
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    // CDN failed: fall back to the static no-JS presentation (visible title, quote, words)
+    document.documentElement.classList.replace('js', 'no-js');
     document.getElementById('preloader')?.remove();
     return;
   }
