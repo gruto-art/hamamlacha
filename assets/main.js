@@ -667,17 +667,26 @@ function initDonate() {
 
   // -- Main donate button click --
   if (btn) {
-    btn.addEventListener('click', handleDonate);
+    btn.addEventListener('click', () => {
+      track('donate_bit_click');
+      handleDonate();
+    });
   }
 
   // -- Copy button (copy only, no redirect) --
   if (copyBtn) {
     copyBtn.addEventListener('click', async () => {
+      track('donate_copy_number');
       await copyNumber();
       copyBtn.textContent = 'הועתק ✓';
       setTimeout(() => { copyBtn.textContent = 'העתק'; }, 2000);
     });
   }
+}
+
+/** Send a Google Analytics event (no-op if analytics is blocked) */
+function track(name, params) {
+  if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
 }
 
 /** Copy the Bit phone number to clipboard */
