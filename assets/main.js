@@ -723,7 +723,7 @@ async function handleDonate() {
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       window.location.href = url;
     } else {
-      window.open(url, '_blank');
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
   }, 900);
 }
