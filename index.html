@@ -8,7 +8,7 @@
   <title>הממלכה — גמילות חסדים ע״ש יעקב ורבקה מלכה</title>
   <meta name="description" content="הממלכה — ארגון חסד ע״ש יעקב ורבקה מלכה זיע״א. נתינה לכל אדם וגמ״ח כיסויי כיסאות לאירועים, בהובלת האחים דניאל ואלחנן.">
   <meta property="og:title" content="הממלכה — ע״ש יעקב ורבקה מלכה זיע״א">
-  <meta property="og:description" content="ארגון חסד ע״ש יעקב ורבקה מלכה זיע״א — נתינה לכל אדם, בכבוד ובשמחה.">
+  <meta property="og:description" content="״ואלו הן גמילות חסדים שבגופו, שאין להם שיעור״ — ארגון חסד ע״ש יעקב ורבקה מלכה זיע״א">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://gruto-art.github.io/hamamlacha/assets/og.png">
   <meta property="og:image:width" content="1200">
@@ -67,7 +67,10 @@
         <span class="hero__dedication-text">ע״ש יעקב ורבקה מלכה</span>
         <span class="hero__dedication-line" aria-hidden="true"></span>
       </div>
-      <p class="hero__tagline">גדולתה של ממלכה אינה בארמונותיה —<br>אלא בידיים שהיא מושיטה</p>
+      <blockquote class="hero__tagline">
+        <p class="hero__tagline-quote">״וְאֵלּוּ הֵן גְּמִילוּת חֲסָדִים שֶׁבְּגוּפוֹ, שֶׁאֵין לָהֶם שִׁעוּר״</p>
+        <cite class="hero__tagline-source">רמב״ם, הלכות אבל, פרק יד</cite>
+      </blockquote>
     </div>
 
     <div class="hero__scroll-hint" aria-hidden="true">
@@ -114,12 +117,14 @@
 
       <!-- Bios -->
       <div class="brothers__bio brothers__bio--daniel">
+        <span class="brothers__bio-caption">אירועים ועיצוב</span>
         <h3>דניאל</h3>
-        <p>יזם ואיש עשייה, שמאמין שהצלחה אמיתית נמדדת במה שנותנים לאחרים.</p>
+        <p>בעל חברה בתחום האירועים והעיצוב. יודע מקרוב כמה שמחה מושקעת בכל אירוע, ובוחר להפוך את הידע הזה לנתינה.</p>
       </div>
       <div class="brothers__bio brothers__bio--elchanan">
+        <span class="brothers__bio-caption">טכנולוגיה ומערכות מתקדמות</span>
         <h3>אלחנן</h3>
-        <p>יזם ואיש חסד, שמקדם נתינה משמעותית בקהילה — בשקט, בצניעות ובלב פתוח.</p>
+        <p>יזם בתחום מערכות הטכנולוגיה והתחומים המתקדמים. מביא לעולם החסד חשיבה חדה, סדר ויעילות.</p>
       </div>
     </div>
   </section>
@@ -129,22 +134,38 @@
        ============================================ -->
   <section id="memorial">
     <span class="section-label">03 — לזכרם</span>
-    <div class="memorial__intro">
+    <div class="memorial__header">
       <h2 class="memorial__headline">על שמם</h2>
       <p class="memorial__lead">הממלכה נקראת על שמם של יעקב ורבקה מלכה זיע״א, שחייהם היו נתינה. כל מעשה חסד שלנו הוא המשך לדרכם.</p>
     </div>
-    <div class="memorial__panels">
-      <div class="memorial__panel" data-memorial="yaakov">
-        <div class="memorial__candle" aria-hidden="true"></div>
-        <div class="memorial__frame" aria-hidden="true"></div>
-        <h3 class="memorial__name">יעקב מלכה זיע״א</h3>
-        <p class="memorial__text">איש של חסד, שנתן מעצמו לכל אדם — בלי חשבון ובמסירות נפש. ליבו היה פתוח לכל מי שנזקק לו, והנתינה הייתה אצלו דרך חיים.</p>
+    <div class="memorial__columns">
+      <!-- Column Yaakov -->
+      <div class="memorial__col" data-memorial="yaakov">
+        <div class="memorial__ghost" aria-hidden="true">י</div>
+        <div class="memorial__candle" aria-hidden="true">
+          <div class="memorial__candle-flame" aria-hidden="true"></div>
+          <div class="memorial__candle-line" aria-hidden="true"></div>
+        </div>
+        <div class="memorial__col-text">
+          <h3 class="memorial__name">יעקב מלכה<span class="memorial__ziua">זיע״א</span></h3>
+          <p class="memorial__text">איש של חסד, שנתן מעצמו לכל אדם — בלי חשבון ובמסירות נפש. ליבו היה פתוח לכל מי שנזקק לו, והנתינה הייתה אצלו דרך חיים.</p>
+        </div>
       </div>
-      <div class="memorial__panel" data-memorial="rivka">
-        <div class="memorial__candle" aria-hidden="true"></div>
-        <div class="memorial__frame" aria-hidden="true"></div>
-        <h3 class="memorial__name">רבקה מלכה זיע״א</h3>
-        <p class="memorial__text">אשת חסד, שדאגה לכל אדם כאילו היה מבני ביתה. במסירות נפש ובחום רב הושיטה יד לכל מי שהזדקק, ומעולם לא השיבה איש ריקם.</p>
+
+      <!-- Vertical hairline -->
+      <div class="memorial__divider" aria-hidden="true"></div>
+
+      <!-- Column Rivka -->
+      <div class="memorial__col" data-memorial="rivka">
+        <div class="memorial__ghost" aria-hidden="true">ר</div>
+        <div class="memorial__candle" aria-hidden="true">
+          <div class="memorial__candle-flame" aria-hidden="true"></div>
+          <div class="memorial__candle-line" aria-hidden="true"></div>
+        </div>
+        <div class="memorial__col-text">
+          <h3 class="memorial__name">רבקה מלכה<span class="memorial__ziua">זיע״א</span></h3>
+          <p class="memorial__text">אשת חסד, שדאגה לכל אדם כאילו היה מבני ביתה. במסירות נפש ובחום רב הושיטה יד לכל מי שהזדקק, ומעולם לא השיבה איש ריקם.</p>
+        </div>
       </div>
     </div>
   </section>

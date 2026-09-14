@@ -218,7 +218,7 @@ body::before {
    JS computes --word-bottom (px from top of hero) and sets it on #hero */
 .hero__dedication {
   position: absolute;
-  top: calc(var(--word-bottom, 60%) + 18px);
+  top: calc(var(--word-bottom, 60%) + 34px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -232,14 +232,13 @@ body::before {
 }
 
 .hero__tagline {
+  font-style: normal;
   font-family: var(--f-body);
   font-weight: 300;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  color: var(--c-parchment);
-  max-width: 500px;
+  max-width: 560px;
   margin: 0 auto;
   position: absolute;
-  top: calc(var(--word-bottom, 60%) + 18px + 2.4em + 16px);
+  top: calc(var(--word-bottom, 60%) + 34px + 2.6em + 20px);
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -247,6 +246,26 @@ body::before {
   z-index: 3;
   opacity: 0;
   /* JS fades in after dedication */
+}
+
+.hero__tagline-quote {
+  font-family: var(--f-body);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  color: var(--c-parchment);
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.hero__tagline-source {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--c-gold);
+  font-style: normal;
+  display: block;
 }
 
 .hero__dedication-text {
@@ -289,6 +308,17 @@ body::before {
     opacity: 1 !important;
   }
 }
+
+/* Mobile: tighter gaps */
+@media (max-width: 767px) {
+  .hero__dedication {
+    top: calc(var(--word-bottom, 60%) + 24px);
+  }
+  .hero__tagline {
+    top: calc(var(--word-bottom, 60%) + 24px + 2.6em + 20px);
+  }
+}
+
 
 .hero__scroll-hint {
   position: absolute;
@@ -435,168 +465,236 @@ body::before {
   margin-bottom: 1rem;
 }
 
+.brothers__bio-caption {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--c-gold);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 .brothers__bio p {
   font-family: var(--f-body);
   font-weight: 300;
   font-size: 1rem;
   opacity: 0.8;
+  max-width: 42ch;
 }
 
 /* --------------------------------------------------------------------------
-   8. MEMORIAL (לזכרם)
+   8. MEMORIAL (לזכרם) — redesigned editorial system
    -------------------------------------------------------------------------- */
 #memorial {
   padding: var(--section-padding-y) var(--section-padding-x);
   max-width: var(--max-width);
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
 }
 
-.memorial__intro {
-  text-align: center;
-  margin-bottom: 4rem;
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
+/* Header: right-aligned headline + lead side by side on desktop */
+.memorial__header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(3rem, 8vw, 6rem);
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .memorial__header {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
 }
 
 .memorial__headline {
-  font-family: var(--f-body);
-  font-weight: 500;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--c-gold);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 0.9;
+  color: var(--c-parchment);
+  flex-shrink: 0;
   margin-bottom: 1rem;
-  letter-spacing: 0.06em;
 }
 
 .memorial__lead {
   font-family: var(--f-body);
   font-weight: 300;
-  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: var(--c-parchment);
-  opacity: 0.75;
+  opacity: 0.8;
   line-height: 1.7;
+  max-width: 42ch;
+  text-align: right;
+  align-self: flex-end;
+  padding-bottom: 0.5rem;
 }
 
-.memorial__panels {
+/* Two-column layout with vertical hairline */
+.memorial__columns {
   display: flex;
-  gap: clamp(1.5rem, 4vw, 3rem);
   flex-direction: column;
+  position: relative;
+  gap: 4rem;
 }
 
 @media (min-width: 768px) {
-  .memorial__panels {
+  .memorial__columns {
     flex-direction: row;
+    gap: 0;
+    align-items: flex-start;
   }
 }
 
-.memorial__panel {
+/* Individual column */
+.memorial__col {
   flex: 1;
   position: relative;
-  padding: 2.5rem 2rem 2rem;
+  padding: 0 clamp(1.5rem, 3vw, 3.5rem);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  /* Gold frame drawn in via clip-path animation on the ::before/::after */
-  --frame-scale: 0;
 }
 
-/* Gold draw-in frame via outline borders */
-.memorial__frame {
+.memorial__col:first-child {
+  padding-right: 0;
+}
+.memorial__col:last-child {
+  padding-left: 0;
+}
+
+@media (max-width: 767px) {
+  .memorial__col,
+  .memorial__col:first-child,
+  .memorial__col:last-child {
+    padding: 0;
+  }
+}
+
+/* Ghost Hebrew initial behind each column */
+.memorial__ghost {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 26vw;
+  line-height: 1;
+  color: var(--c-gold);
+  opacity: 0.06;
   position: absolute;
-  inset: 0;
+  top: -0.2em;
+  right: -0.1em;
   pointer-events: none;
+  z-index: 0;
+  user-select: none;
 }
 
-.memorial__frame::before,
-.memorial__frame::after {
-  content: '';
-  position: absolute;
-  border: 1px solid rgba(201, 162, 74, 0.5);
+@media (max-width: 767px) {
+  .memorial__ghost {
+    font-size: 55vw;
+    opacity: 0.05;
+  }
 }
 
-.memorial__frame::before {
-  top: 0; left: 0;
-  width: var(--frame-w, 0%);
-  height: var(--frame-h, 0%);
-  border-bottom: none;
-  border-left: none;
-}
-
-.memorial__frame::after {
-  bottom: 0; right: 0;
-  width: var(--frame-w, 0%);
-  height: var(--frame-h, 0%);
-  border-top: none;
-  border-right: none;
-}
-
-/* Candle glow — CSS radial gradient with gentle flicker */
+/* Refined candle: thin 1px gold line + teardrop flame above */
 .memorial__candle {
-  width: 48px;
-  height: 64px;
   position: relative;
+  width: 1px;
+  height: 70px;
   margin-bottom: 1.5rem;
   flex-shrink: 0;
+  z-index: 2;
+  /* Draw-in via clip-path driven by JS — initial state hidden */
+  overflow: visible;
 }
 
-.memorial__candle::before {
-  /* Flame */
-  content: '';
+.memorial__candle-line {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 30px;
-  width: 14px;
-  height: 20px;
-  background: radial-gradient(ellipse at 50% 80%, #fff8c0 0%, #f5c842 40%, #e07b00 80%, transparent 100%);
-  border-radius: 50% 50% 30% 30%;
-  animation: candle-flicker 3s ease-in-out infinite;
-  filter: blur(1px);
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 0; /* Drawn by JS ScrollTrigger */
+  background: linear-gradient(to top, rgba(201, 162, 74, 0.8), rgba(201, 162, 74, 0.3));
 }
 
-.memorial__candle::after {
-  /* Warm glow halo */
-  content: '';
+/* Teardrop flame */
+.memorial__candle-flame {
   position: absolute;
+  bottom: 70px; /* sits on top of the line */
   left: 50%;
   transform: translateX(-50%);
-  bottom: 18px;
-  width: 48px;
-  height: 48px;
-  background: radial-gradient(circle, rgba(230, 180, 50, 0.35) 0%, transparent 70%);
+  width: 10px;
+  height: 16px;
+  background: radial-gradient(ellipse at 50% 85%, #fff9d0 0%, #f5c842 35%, #e07b00 75%, transparent 100%);
+  border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+  filter: blur(0.5px);
+  animation: flame-flicker 3.5s ease-in-out infinite;
+  opacity: 0; /* fades in after line draws */
+}
+
+/* Glow halo under flame */
+.memorial__candle-flame::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle, rgba(230, 180, 50, 0.4) 0%, transparent 70%);
   border-radius: 50%;
-  animation: candle-glow 3s ease-in-out infinite;
+  animation: flame-glow 3.5s ease-in-out infinite;
 }
 
-@keyframes candle-flicker {
+@keyframes flame-flicker {
   0%, 100% { transform: translateX(-50%) scaleX(1) scaleY(1); opacity: 1; }
-  20% { transform: translateX(-52%) scaleX(0.9) scaleY(1.05); opacity: 0.92; }
-  50% { transform: translateX(-48%) scaleX(1.05) scaleY(0.96); opacity: 0.97; }
-  75% { transform: translateX(-51%) scaleX(0.95) scaleY(1.03); opacity: 0.94; }
+  25%       { transform: translateX(-52%) scaleX(0.88) scaleY(1.06); opacity: 0.9; }
+  55%       { transform: translateX(-48%) scaleX(1.06) scaleY(0.95); opacity: 0.96; }
+  78%       { transform: translateX(-51%) scaleX(0.93) scaleY(1.04); opacity: 0.92; }
 }
 
-@keyframes candle-glow {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-  40% { opacity: 0.9; transform: translateX(-50%) scale(1.08); }
-  70% { opacity: 0.55; transform: translateX(-50%) scale(0.95); }
+@keyframes flame-glow {
+  0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+  40%       { opacity: 0.9; transform: translate(-50%,-50%) scale(1.12); }
+  70%       { opacity: 0.5; transform: translate(-50%,-50%) scale(0.92); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .memorial__candle::before,
-  .memorial__candle::after {
+  .memorial__candle-flame,
+  .memorial__candle-flame::after {
     animation: none;
   }
 }
 
+/* Column text wrapper */
+.memorial__col-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Name in Karantina, gold */
 .memorial__name {
-  font-family: var(--f-body);
-  font-weight: 500;
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 0.9;
   color: var(--c-gold);
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  flex-wrap: wrap;
+}
+
+/* "זיע״א" as tiny Heebo caption */
+.memorial__ziua {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--c-gold);
+  opacity: 0.8;
+  align-self: center;
 }
 
 .memorial__text {
@@ -604,9 +702,28 @@ body::before {
   font-weight: 300;
   font-size: clamp(0.95rem, 1.8vw, 1.1rem);
   color: var(--c-parchment);
-  opacity: 0.75;
+  opacity: 0.8;
   line-height: 1.75;
-  max-width: 360px;
+  max-width: 42ch;
+  text-align: right;
+  margin-top: 1rem;
+}
+
+/* Vertical hairline divider — only desktop */
+.memorial__divider {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .memorial__divider {
+    display: block;
+    width: 1px;
+    background: rgba(201, 162, 74, 0.2);
+    align-self: stretch;
+    flex-shrink: 0;
+    /* Drawn top-to-bottom by JS */
+    height: 0;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -749,13 +866,13 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 @media (min-width: 768px) {
   .activity__inner {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     gap: 5vw;
   }
 }
@@ -766,12 +883,12 @@ body::before {
 }
 
 .activity__headline {
-  font-family: var(--f-body);
-  font-weight: 500;
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
-  color: var(--c-gold);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 0.9;
+  color: var(--c-parchment);
   margin-bottom: 1.25rem;
-  line-height: 1.2;
 }
 
 .activity__text {
@@ -781,9 +898,29 @@ body::before {
   color: var(--c-parchment);
   opacity: 0.8;
   line-height: 1.75;
+  max-width: 42ch;
+  text-align: right;
 }
 
-/* CSS Chair illustration */
+/* CSS Chair illustration — with hairline floor */
+.activity__chairs-wrap {
+  position: relative;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+}
+
+.activity__chairs-floor {
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  right: -8px;
+  height: 1px;
+  background: rgba(201, 162, 74, 0.25);
+  /* Drawn by JS */
+  transform-origin: right center;
+  transform: scaleX(0);
+}
+
 .activity__chairs {
   display: flex;
   align-items: flex-end;
