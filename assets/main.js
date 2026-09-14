@@ -921,43 +921,87 @@ function initHeroDedication() {
    15. MEMORIAL — frame draw-in on scroll
    ========================================================================== */
 function initMemorial() {
-  const panels = document.querySelectorAll('.memorial__panel');
-  if (!panels.length) return;
+  const section = document.getElementById('memorial');
+  if (!section) return;
 
-  panels.forEach((panel) => {
-    const frame = panel.querySelector('.memorial__frame');
+  // Reduced motion: CSS handles visibility
+  if (REDUCED_MOTION) return;
 
-    // Fade-up the whole panel
-    if (!REDUCED_MOTION) {
-      gsap.from(panel, {
-        opacity: 0,
-        y: 40,
-        duration: 0.9,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: panel,
-          start: 'top 85%',
-        }
+  const headline = section.querySelector('.memorial__headline');
+  const lead = section.querySelector('.memorial__lead');
+  const divider = section.querySelector('.memorial__divider');
+  const cols = section.querySelectorAll('.memorial__col');
+
+  // 1. Headline rises in, lead fades up
+  if (headline) {
+    gsap.from(headline, {
+      opacity: 0,
+      y: 60,
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: section, start: 'top 75%' }
+    });
+  }
+  if (lead) {
+    gsap.from(lead, {
+      opacity: 0,
+      duration: 1,
+      ease: 'power2.out',
+      delay: 0.2,
+      scrollTrigger: { trigger: section, start: 'top 75%' }
+    });
+  }
+
+  // 2. Divider draws (scrubbed)
+  if (divider) {
+    gsap.from(divider, {
+      scaleY: IS_MOBILE ? 1 : 0,
+      scaleX: IS_MOBILE ? 0 : 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 60%',
+        end: 'bottom 80%',
+        scrub: true,
+      }
+    });
+  }
+
+  // 3. Columns fade up staggered, ghost parallax, candle line + flame
+  cols.forEach((col, i) => {
+    gsap.from(col, {
+      opacity: 0,
+      y: 40,
+      duration: 0.9,
+      ease: 'power2.out',
+      delay: i * 0.2 + 0.1,
+      scrollTrigger: { trigger: section, start: 'top 60%' }
+    });
+
+    const line = col.querySelector('.memorial__candle-line');
+    const flame = col.querySelector('.memorial__candle-flame');
+    if (line) {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: col, start: 'top 55%' }
       });
+      tl.from(line, { scaleY: 0, duration: 1, ease: 'power2.out' });
+      if (flame) {
+        tl.from(flame, { opacity: 0, duration: 0.5, ease: 'power1.inOut' }, '-=0.3');
+      }
     }
 
-    // Draw in the gold frame via CSS custom properties
-    if (frame && !REDUCED_MOTION) {
-      frame.style.setProperty('--frame-w', '0%');
-      frame.style.setProperty('--frame-h', '0%');
-      gsap.to(frame, {
-        '--frame-w': '100%',
-        '--frame-h': '100%',
-        duration: 1.2,
-        ease: 'power2.out',
+    const ghost = col.querySelector('.memorial__ghost');
+    if (ghost) {
+      gsap.to(ghost, {
+        y: -40,
+        ease: 'none',
         scrollTrigger: {
-          trigger: panel,
-          start: 'top 80%',
+          trigger: col,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
         }
       });
-    } else if (frame) {
-      frame.style.setProperty('--frame-w', '100%');
-      frame.style.setProperty('--frame-h', '100%');
     }
   });
 }
@@ -966,38 +1010,66 @@ function initMemorial() {
    16. ACTIVITY — chairs reveal one by one on scroll
    ========================================================================== */
 function initActivity() {
-  const chairs = document.querySelectorAll('.activity__chair');
-  if (!chairs.length) return;
+  const section = document.getElementById('activity');
+  if (!section) return;
+
+  if (!REDUCED_MOTION) {
+    gsap.from('.activity__content', {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#activity',
+        start: 'top 80%',
+      }
+    });
+  }
+
+  const lines = section.querySelectorAll('.chair-line, .chair-floor');
+  const sashes = section.querySelectorAll('.chair-sash');
+  if (!lines.length) return;
 
   if (REDUCED_MOTION) {
-    chairs.forEach(c => c.classList.add('is-revealed'));
+    sashes.forEach(s => s.style.opacity = '1');
     return;
   }
 
-  chairs.forEach((chair, i) => {
-    ScrollTrigger.create({
-      trigger: '#activity',
-      start: 'top 75%',
-      onEnter: () => {
-        setTimeout(() => {
-          chair.classList.add('is-revealed');
-        }, i * 140);
-      },
-      once: true,
-    });
+  lines.forEach(line => {
+    // try-catch for cases where getTotalLength might fail if display:none
+    try {
+      const len = line.getTotalLength();
+      line.style.strokeDasharray = len;
+      line.style.strokeDashoffset = len;
+    } catch (e) {}
   });
 
-  // Fade-up text block
-  gsap.from('.activity__content', {
-    opacity: 0,
-    y: 30,
-    duration: 0.8,
-    ease: 'power2.out',
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: '#activity',
-      start: 'top 80%',
+      start: 'top 70%',
     }
   });
+
+  tl.to('.chair-floor', {
+    strokeDashoffset: 0,
+    duration: 0.6,
+    ease: 'power2.out'
+  });
+
+  tl.to('.chair-line', {
+    strokeDashoffset: 0,
+    duration: 1,
+    stagger: 0.05,
+    ease: 'power2.out'
+  }, '-=0.2');
+
+  tl.to(sashes, {
+    opacity: 1,
+    duration: 0.6,
+    stagger: 0.1,
+    ease: 'power1.inOut'
+  }, '-=0.5');
 }
 
 /* ==========================================================================

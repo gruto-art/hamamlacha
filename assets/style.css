@@ -196,6 +196,10 @@ body::before {
   will-change: transform;
 }
 
+.js .hero__content {
+  position: static;
+}
+
 .hero__content {
   position: relative;
   z-index: 2;
@@ -228,7 +232,7 @@ body::before {
   opacity: 0;
   white-space: nowrap;
   /* JS fades this in after particles settle */
-  z-index: 3;
+  z-index: 2;
 }
 
 .hero__tagline {
@@ -243,7 +247,7 @@ body::before {
   transform: translateX(-50%);
   text-align: center;
   width: 90%;
-  z-index: 3;
+  z-index: 2;
   opacity: 0;
   /* JS fades in after dedication */
 }
@@ -330,6 +334,12 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   z-index: 2;
+}
+
+@media (max-height: 700px) {
+  .hero__scroll-hint {
+    display: none;
+  }
 }
 
 .hero__scroll-label {
@@ -594,6 +604,8 @@ body::before {
   .memorial__ghost {
     font-size: 55vw;
     opacity: 0.05;
+    top: 2rem;
+    right: 0;
   }
 }
 
@@ -611,11 +623,12 @@ body::before {
 
 .memorial__candle-line {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 1px;
-  height: 0; /* Drawn by JS ScrollTrigger */
-  background: linear-gradient(to top, rgba(201, 162, 74, 0.8), rgba(201, 162, 74, 0.3));
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(201, 162, 74, 0.8), rgba(201, 162, 74, 0.3));
+  transform-origin: top;
 }
 
 /* Teardrop flame */
@@ -630,7 +643,7 @@ body::before {
   border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
   filter: blur(0.5px);
   animation: flame-flicker 3.5s ease-in-out infinite;
-  opacity: 0; /* fades in after line draws */
+  opacity: 1;
 }
 
 /* Glow halo under flame */
@@ -709,20 +722,24 @@ body::before {
   margin-top: 1rem;
 }
 
-/* Vertical hairline divider — only desktop */
+/* Hairline divider */
 .memorial__divider {
-  display: none;
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: rgba(201, 162, 74, 0.2);
+  margin: 0 auto;
+  flex-shrink: 0;
+  transform-origin: center;
 }
 
 @media (min-width: 768px) {
   .memorial__divider {
-    display: block;
     width: 1px;
-    background: rgba(201, 162, 74, 0.2);
+    height: auto;
+    margin: 0;
     align-self: stretch;
-    flex-shrink: 0;
-    /* Drawn top-to-bottom by JS */
-    height: 0;
+    transform-origin: top;
   }
 }
 
@@ -872,7 +889,7 @@ body::before {
 @media (min-width: 768px) {
   .activity__inner {
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     gap: 5vw;
   }
 }
@@ -902,85 +919,23 @@ body::before {
   text-align: right;
 }
 
-/* CSS Chair illustration — with hairline floor */
-.activity__chairs-wrap {
-  position: relative;
+/* SVG Chair illustration */
+.activity__illustration {
   flex-shrink: 0;
-  padding-bottom: 2px;
-}
-
-.activity__chairs-floor {
-  position: absolute;
-  bottom: 0;
-  left: -8px;
-  right: -8px;
-  height: 1px;
-  background: rgba(201, 162, 74, 0.25);
-  /* Drawn by JS */
-  transform-origin: right center;
-  transform: scaleX(0);
-}
-
-.activity__chairs {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.activity__chair {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  max-width: 560px;
   position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  /* JS animates each chair in on scroll */
-}
-
-.activity__chair.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-/* Chair back — draped cover */
-.activity__chair-back {
-  width: 44px;
-  height: 56px;
-  background: linear-gradient(180deg, var(--c-parchment) 0%, #d8cfc0 100%);
-  border-radius: 6px 6px 0 0;
-  position: relative;
-  border: 1px solid rgba(201, 162, 74, 0.3);
-}
-
-/* Sash — a thin gold band across the back */
-.activity__chair-sash {
-  width: 48px;
-  height: 10px;
-  margin-top: -10px;
-  background: linear-gradient(90deg, transparent 0%, var(--c-gold) 20%, var(--c-gold-light) 50%, var(--c-gold) 80%, transparent 100%);
-  z-index: 2;
-  border-radius: 2px;
-  position: relative;
-}
-
-/* Chair seat */
-.activity__chair-seat {
-  width: 50px;
-  height: 14px;
-  background: linear-gradient(180deg, #d4c9b5 0%, #bfb29e 100%);
-  border-radius: 3px;
-  border: 1px solid rgba(201, 162, 74, 0.25);
 }
 
 @media (max-width: 767px) {
-  .activity__chairs {
-    gap: 7px;
+  .activity__illustration {
+    margin-top: 1rem;
+    align-self: center;
   }
-  .activity__chair-back { width: 34px; height: 44px; }
-  .activity__chair-sash { width: 38px; height: 8px; margin-top: -8px; }
-  .activity__chair-seat { width: 40px; height: 11px; }
+}
+
+.chair-sash {
+  opacity: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -1452,15 +1407,15 @@ body::before {
     --section-padding-y: clamp(2.5rem, 8vh, 5rem);
   }
 
-  /* ---- Brothers: reduced from 125vh to ~95vh ---- */
-  #brothers { min-height: 0; padding-block: 4vh; }
-  .brothers__stage { height: 95vh; min-height: 0; }
-  .brothers__initial { font-size: 44vw; }
-  .brothers__initial--daniel { top: 6%; right: 2%; }
-  .brothers__initial--elchanan { top: 44%; left: 2%; }
-  .brothers__bio { position: absolute; max-width: 62%; margin: 0; }
-  .brothers__bio--daniel { top: 2%; right: 0; }
-  .brothers__bio--elchanan { top: 40%; left: 0; }
+  /* ---- Brothers: text above drawing, no overlap ---- */
+  #brothers { min-height: 0; padding-block: 4vh; padding-bottom: 10vh; }
+  .brothers__stage { display: flex; flex-direction: column; height: auto; min-height: 0; padding-bottom: 60vh; }
+  .brothers__bio { position: relative; max-width: 100%; margin: 0 0 2rem 0; top: auto; left: auto; right: auto; }
+  
+  .brothers-svg { top: auto !important; bottom: 0 !important; height: 60vh !important; }
+  .brothers__initial { font-size: 44vw; top: auto !important; height: 60vh; line-height: 60vh; }
+  .brothers__initial--daniel { bottom: 30vh; right: 2%; }
+  .brothers__initial--elchanan { bottom: 0; left: 2%; }
 
   /* ---- Memorial ---- */
   #memorial { padding-block: 6vh; }
