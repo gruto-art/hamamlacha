@@ -223,6 +223,39 @@ body::before {
   margin: 0 auto;
 }
 
+/* Hero dedication line — "ע״ש יעקב ורבקה מלכה" */
+.hero__dedication {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  /* JS fades this in after particles settle */
+}
+
+.hero__dedication-text {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  color: var(--c-gold-light);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.hero__dedication-line {
+  display: block;
+  width: clamp(24px, 5vw, 60px);
+  height: 1px;
+  background-color: var(--c-gold);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.no-js .hero__dedication {
+  opacity: 1;
+}
+
 .hero__scroll-hint {
   position: absolute;
   bottom: 2rem;
@@ -376,7 +409,174 @@ body::before {
 }
 
 /* --------------------------------------------------------------------------
-   8. CHAPTERS
+   8. MEMORIAL (לזכרם)
+   -------------------------------------------------------------------------- */
+#memorial {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+}
+
+.memorial__intro {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.memorial__headline {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--c-gold);
+  margin-bottom: 1rem;
+  letter-spacing: 0.06em;
+}
+
+.memorial__lead {
+  font-family: var(--f-body);
+  font-weight: 300;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: var(--c-parchment);
+  opacity: 0.75;
+  line-height: 1.7;
+}
+
+.memorial__panels {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .memorial__panels {
+    flex-direction: row;
+  }
+}
+
+.memorial__panel {
+  flex: 1;
+  position: relative;
+  padding: 2.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* Gold frame drawn in via clip-path animation on the ::before/::after */
+  --frame-scale: 0;
+}
+
+/* Gold draw-in frame via outline borders */
+.memorial__frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.memorial__frame::before,
+.memorial__frame::after {
+  content: '';
+  position: absolute;
+  border: 1px solid rgba(201, 162, 74, 0.5);
+}
+
+.memorial__frame::before {
+  top: 0; left: 0;
+  width: var(--frame-w, 0%);
+  height: var(--frame-h, 0%);
+  border-bottom: none;
+  border-left: none;
+}
+
+.memorial__frame::after {
+  bottom: 0; right: 0;
+  width: var(--frame-w, 0%);
+  height: var(--frame-h, 0%);
+  border-top: none;
+  border-right: none;
+}
+
+/* Candle glow — CSS radial gradient with gentle flicker */
+.memorial__candle {
+  width: 48px;
+  height: 64px;
+  position: relative;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+.memorial__candle::before {
+  /* Flame */
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 30px;
+  width: 14px;
+  height: 20px;
+  background: radial-gradient(ellipse at 50% 80%, #fff8c0 0%, #f5c842 40%, #e07b00 80%, transparent 100%);
+  border-radius: 50% 50% 30% 30%;
+  animation: candle-flicker 3s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+.memorial__candle::after {
+  /* Warm glow halo */
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18px;
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle, rgba(230, 180, 50, 0.35) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: candle-glow 3s ease-in-out infinite;
+}
+
+@keyframes candle-flicker {
+  0%, 100% { transform: translateX(-50%) scaleX(1) scaleY(1); opacity: 1; }
+  20% { transform: translateX(-52%) scaleX(0.9) scaleY(1.05); opacity: 0.92; }
+  50% { transform: translateX(-48%) scaleX(1.05) scaleY(0.96); opacity: 0.97; }
+  75% { transform: translateX(-51%) scaleX(0.95) scaleY(1.03); opacity: 0.94; }
+}
+
+@keyframes candle-glow {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  40% { opacity: 0.9; transform: translateX(-50%) scale(1.08); }
+  70% { opacity: 0.55; transform: translateX(-50%) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memorial__candle::before,
+  .memorial__candle::after {
+    animation: none;
+  }
+}
+
+.memorial__name {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: var(--c-gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.memorial__text {
+  font-family: var(--f-body);
+  font-weight: 300;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  color: var(--c-parchment);
+  opacity: 0.75;
+  line-height: 1.75;
+  max-width: 360px;
+}
+
+/* --------------------------------------------------------------------------
+   9. CHAPTERS
    -------------------------------------------------------------------------- */
 #chapters {
   overflow: hidden;
@@ -390,7 +590,7 @@ body::before {
 
 .chapter {
   width: 100%;
-  min-height: 100vh;
+  min-height: 72vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -448,7 +648,118 @@ body::before {
 }
 
 /* --------------------------------------------------------------------------
-   9. MARQUEE
+   10. ACTIVITY (הפעילות)
+   -------------------------------------------------------------------------- */
+#activity {
+  padding: var(--section-padding-y) var(--section-padding-x);
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.activity__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .activity__inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 5vw;
+  }
+}
+
+.activity__content {
+  flex: 1;
+  max-width: 500px;
+}
+
+.activity__headline {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  color: var(--c-gold);
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.activity__text {
+  font-family: var(--f-body);
+  font-weight: 300;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--c-parchment);
+  opacity: 0.8;
+  line-height: 1.75;
+}
+
+/* CSS Chair illustration */
+.activity__chairs {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.activity__chair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  /* JS animates each chair in on scroll */
+}
+
+.activity__chair.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Chair back — draped cover */
+.activity__chair-back {
+  width: 44px;
+  height: 56px;
+  background: linear-gradient(180deg, var(--c-parchment) 0%, #d8cfc0 100%);
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  border: 1px solid rgba(201, 162, 74, 0.3);
+}
+
+/* Sash — a thin gold band across the back */
+.activity__chair-sash {
+  width: 48px;
+  height: 10px;
+  margin-top: -10px;
+  background: linear-gradient(90deg, transparent 0%, var(--c-gold) 20%, var(--c-gold-light) 50%, var(--c-gold) 80%, transparent 100%);
+  z-index: 2;
+  border-radius: 2px;
+  position: relative;
+}
+
+/* Chair seat */
+.activity__chair-seat {
+  width: 50px;
+  height: 14px;
+  background: linear-gradient(180deg, #d4c9b5 0%, #bfb29e 100%);
+  border-radius: 3px;
+  border: 1px solid rgba(201, 162, 74, 0.25);
+}
+
+@media (max-width: 767px) {
+  .activity__chairs {
+    gap: 7px;
+  }
+  .activity__chair-back { width: 34px; height: 44px; }
+  .activity__chair-sash { width: 38px; height: 8px; margin-top: -8px; }
+  .activity__chair-seat { width: 40px; height: 11px; }
+}
+
+/* --------------------------------------------------------------------------
+   11. MARQUEE
    -------------------------------------------------------------------------- */
 #marquee {
   overflow: hidden;
@@ -708,16 +1019,50 @@ body::before {
 
 .scroll-crown {
   position: fixed; top: 2rem; right: 2rem;
-  width: 40px; height: 40px; z-index: 9900;
+  width: auto; height: auto; z-index: 9900;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
-@media (max-width: 767px) {
-  .scroll-crown { top: 1rem; right: 1rem; width: 30px; height: 30px; }
+
+.scroll-crown svg {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
+
 .scroll-crown-fill {
   transform-origin: bottom;
   transform: scaleY(0);
 }
+
+@media (max-width: 767px) {
+  .scroll-crown { top: 1rem; right: 1rem; }
+  .scroll-crown svg { width: 30px; height: 30px; }
+}
+
+.scroll-crown__dedication {
+  font-family: var(--f-ui);
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--c-gold);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6);
+  line-height: 1;
+  display: block;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .scroll-crown__dedication {
+    font-size: 9px;
+  }
+}
+
 /* --------------------------------------------------------------------------
    12. FOOTER
    -------------------------------------------------------------------------- */
@@ -894,7 +1239,7 @@ body::before {
   .brothers__bio--daniel { top: 2%; right: 0; }
   .brothers__bio--elchanan { top: 40%; left: 0; }
 
-  .chapter { min-height: auto; padding-block: 14vh; }
+  .chapter { min-height: auto; padding-block: 7vh; }
   .chapter__number { font-size: clamp(7rem, 40vw, 10rem); }
 
   .donate__btn-ring { width: calc(100% + 64px); height: calc(100% + 64px); }

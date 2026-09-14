@@ -83,7 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
       skipPreloader();
       initManifesto();
       initBrothers();
+      initMemorial();
       initChapters();
+      initActivity();
       initMarquee();
       initDonate();
       initFooter();
@@ -91,10 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       runPreloader(() => {
         initHeroParticles();
+        initHeroDedication();
         initSpotlight();
         initManifesto();
         initBrothers();
+        initMemorial();
         initChapters();
+        initActivity();
         initMarquee();
         initDonate();
         initFooter();
@@ -891,7 +896,108 @@ function initSignatures() {
 }
 
 /* ==========================================================================
-   16. RESIZE HANDLING
+   14. HERO DEDICATION — fade in after particles settle (~2s)
+   ========================================================================== */
+function initHeroDedication() {
+  const ded = document.querySelector('.hero__dedication');
+  if (!ded) return;
+  if (REDUCED_MOTION) {
+    ded.style.opacity = '1';
+    return;
+  }
+  gsap.to(ded, {
+    opacity: 1,
+    duration: 1.2,
+    ease: 'power2.out',
+    delay: 2,
+  });
+}
+
+/* ==========================================================================
+   15. MEMORIAL — frame draw-in on scroll
+   ========================================================================== */
+function initMemorial() {
+  const panels = document.querySelectorAll('.memorial__panel');
+  if (!panels.length) return;
+
+  panels.forEach((panel) => {
+    const frame = panel.querySelector('.memorial__frame');
+
+    // Fade-up the whole panel
+    if (!REDUCED_MOTION) {
+      gsap.from(panel, {
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: panel,
+          start: 'top 85%',
+        }
+      });
+    }
+
+    // Draw in the gold frame via CSS custom properties
+    if (frame && !REDUCED_MOTION) {
+      frame.style.setProperty('--frame-w', '0%');
+      frame.style.setProperty('--frame-h', '0%');
+      gsap.to(frame, {
+        '--frame-w': '100%',
+        '--frame-h': '100%',
+        duration: 1.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: panel,
+          start: 'top 80%',
+        }
+      });
+    } else if (frame) {
+      frame.style.setProperty('--frame-w', '100%');
+      frame.style.setProperty('--frame-h', '100%');
+    }
+  });
+}
+
+/* ==========================================================================
+   16. ACTIVITY — chairs reveal one by one on scroll
+   ========================================================================== */
+function initActivity() {
+  const chairs = document.querySelectorAll('.activity__chair');
+  if (!chairs.length) return;
+
+  if (REDUCED_MOTION) {
+    chairs.forEach(c => c.classList.add('is-revealed'));
+    return;
+  }
+
+  chairs.forEach((chair, i) => {
+    ScrollTrigger.create({
+      trigger: '#activity',
+      start: 'top 75%',
+      onEnter: () => {
+        setTimeout(() => {
+          chair.classList.add('is-revealed');
+        }, i * 140);
+      },
+      once: true,
+    });
+  });
+
+  // Fade-up text block
+  gsap.from('.activity__content', {
+    opacity: 0,
+    y: 30,
+    duration: 0.8,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '#activity',
+      start: 'top 80%',
+    }
+  });
+}
+
+/* ==========================================================================
+   17. RESIZE HANDLING
    ========================================================================== */
 window.addEventListener('resize', debounce(() => {
   if (heroParticles) heroParticles.resize();
