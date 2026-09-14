@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הממלכה — נתינה משמעותית</title>
+  <meta name="description" content="הממלכה — עמותה לנתינה משמעותית בקהילה. נוסדה על ידי דניאל ואלחנן, שני אחים יזמים שמאמינים שחסד אמיתי דורש פעולה ישירה ואישית.">
+  <meta property="og:title" content="הממלכה — נתינה משמעותית">
+  <meta property="og:description" content="ממלכה נמדדת לא בגודל הארמון — אלא בכמה ידיים היא מושיטה.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og.png">
+  <meta property="og:locale" content="he_IL">
+  <meta name="theme-color" content="#0D0C0A">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Preconnect for speed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500&family=Karantina:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       PRELOADER — crown draws line-by-line, then
+       curtains split to reveal hero
+       ============================================ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader__curtain preloader__curtain--left"></div>
+    <div class="preloader__curtain preloader__curtain--right"></div>
+    <svg class="preloader__crown" viewBox="0 0 200 160" fill="none" stroke="#C9A24A" stroke-linecap="round" stroke-linejoin="round">
+      <path class="crown-line crown-line--main" d="M20,120 L50,25 L80,80 L100,10 L120,80 L150,25 L180,120" stroke-width="3"/>
+      <path class="crown-line crown-line--base" d="M16,128 L184,128" stroke-width="3.5"/>
+      <circle class="crown-line crown-line--jewel" cx="100" cy="16" r="6" stroke-width="2"/>
+      <circle class="crown-line crown-line--jewel" cx="50" cy="30" r="4" stroke-width="2"/>
+      <circle class="crown-line crown-line--jewel" cx="150" cy="30" r="4" stroke-width="2"/>
+    </svg>
+  </div>
+
+  
+
+  <!-- ============================================
+       01 — HERO
+       Particle canvas renders the title.
+       Real h1 stays for SEO/a11y.
+       ============================================ -->
+  <section id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero__spotlight" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <span class="section-label">01 — חסד שנבנה בידיים</span>
+      <h1 class="hero__title">הממלכה</h1>
+      <p class="hero__tagline">ממלכה נמדדת לא בגודל הארמון —<br>אלא בכמה ידיים היא מושיטה</p>
+    </div>
+
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span class="hero__scroll-label">גלול</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       02 — MANIFESTO
+       Words reveal from dim to bright on scroll.
+       Key words highlighted in gold.
+       ============================================ -->
+  <section id="manifesto">
+    <span class="section-label">02 — המניפסט</span>
+    <p class="manifesto__text" data-gold="נתינה,ממלכה,יחד,משמעותית,ידיים,חוויה">ממלכה אמיתית לא נמדדת בגודל הארמון, אלא בכמה ידיים היא מושיטה. שני אחים יצאו לדרך מתוך אמונה פשוטה — שנתינה משמעותית יכולה לשנות מציאות. לא מחר, עכשיו. לא מרחוק, אלא פנים אל פנים, יד ביד. כל תרומה היא אבן בבניין. כל נותן הופך לחלק מהממלכה. כי חסד אמיתי הוא לא רק מה שנותנים — אלא איך נותנים, ולמי, ויחד.</p>
+  </section>
+
+  <!-- ============================================
+       03 — BROTHERS
+       Two giant initials converge via SVG paths
+       into the crown mark on scroll.
+       ============================================ -->
+  <section id="brothers">
+    <span class="section-label">03 — שני אחים, דרך אחת</span>
+
+    <div class="brothers__stage">
+      <!-- Giant initials -->
+      <div class="brothers__initial brothers__initial--daniel" aria-hidden="true">ד</div>
+      <div class="brothers__initial brothers__initial--elchanan" aria-hidden="true">א</div>
+
+      <!-- SVG convergent paths -->
+      <svg class="brothers-svg brothers-svg--desktop" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" fill="none" stroke="#C9A24A" stroke-width="2" aria-hidden="true">
+        <path class="brothers__path brothers__path--left" d="M100,250 C200,250 250,150 350,180 C420,200 440,250 460,250"/>
+        <path class="brothers__path brothers__path--right" d="M900,250 C800,250 750,150 650,180 C580,200 560,250 540,250"/>
+        <!-- Crown at convergence -->
+        <path class="brothers__path brothers__path--crown" d="M460,250 L475,220 L485,240 L500,210 L515,240 L525,220 L540,250" stroke-width="2.5"/>
+      </svg>
+      <svg class="brothers-svg brothers-svg--mobile" viewBox="0 0 500 1000" preserveAspectRatio="xMidYMid meet" fill="none" stroke="#C9A24A" stroke-width="2" aria-hidden="true">
+        <path class="brothers__path brothers__path--right" d="M350,180 C350,400 320,550 290,750"/>
+        <path class="brothers__path brothers__path--left" d="M150,550 C150,650 180,700 210,750"/>
+        <path class="brothers__path brothers__path--crown" d="M210,750 L225,720 L235,740 L250,710 L265,740 L275,720 L290,750" stroke-width="2.5"/>
+      </svg>
+
+      <!-- Bios -->
+      <div class="brothers__bio brothers__bio--daniel">
+        <h3>דניאל</h3>
+        <p>יזם. יודע לזהות הזדמנות — ובוחר להפוך אותה לנתינה.</p>
+      </div>
+      <div class="brothers__bio brothers__bio--elchanan">
+        <h3>אלחנן</h3>
+        <p>יזם. רואה צורך — ולא מחכה שמישהו אחר יפתור אותו.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       04 — HORIZONTAL CHAPTERS
+       Pinned horizontal scroll on desktop,
+       vertical stacked on mobile.
+       ============================================ -->
+  <section id="chapters">
+    <div class="chapters__track">
+
+      <article class="chapter">
+        <span class="chapter__number">01</span>
+        <h2 class="chapter__title">הרעיון</h2>
+        <p class="chapter__text">הכל התחיל מרעיון פשוט: מה אם נתינה תהיה לא חובה, אלא חוויה? לא עול — אלא שמחה שבוחרים בה.</p>
+        <div class="chapter__deco" aria-hidden="true"></div>
+      </article>
+
+      <article class="chapter">
+        <span class="chapter__number">02</span>
+        <h2 class="chapter__title">העשייה</h2>
+        <p class="chapter__text">גישה יזמית לחסד: לזהות צורך ולפעול מיד. להגיע ישירות, לתת ערך אמיתי, יד ליד.</p>
+        <div class="chapter__deco" aria-hidden="true"></div>
+      </article>
+
+      <article class="chapter">
+        <span class="chapter__number">03</span>
+        <h2 class="chapter__title">הקהילה</h2>
+        <p class="chapter__text">כל תורם נכנס למעגל. לא רשימת שמות — משפחה. הממלכה גדלה כי אנשים מאמינים שנתינה היא דרך חיים.</p>
+        <div class="chapter__deco" aria-hidden="true"></div>
+      </article>
+
+      <article class="chapter">
+        <span class="chapter__number">04</span>
+        <h2 class="chapter__title">את/ה</h2>
+        <p class="chapter__text">החלק הבא של הסיפור הוא שלך. תרומה אחת — וכבר הממלכה לא אותו דבר.</p>
+        <div class="chapter__deco" aria-hidden="true"></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       05 — MARQUEE
+       Infinite outline-text marquee reacting
+       to scroll velocity.
+       ============================================ -->
+  <section id="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__text">נתינה ✦ קהילה ✦ אחים ✦ חסד ✦ ממלכה ✦ נתינה ✦ קהילה ✦ אחים ✦ חסד ✦ ממלכה ✦&nbsp;</span>
+      <span class="marquee__text">נתינה ✦ קהילה ✦ אחים ✦ חסד ✦ ממלכה ✦ נתינה ✦ קהילה ✦ אחים ✦ חסד ✦ ממלכה ✦&nbsp;</span>
+    </div>
+  </section>
+
+  <!-- ============================================
+       06 — DONATE (the finale)
+       Magnetic button, circular text, copy + redirect.
+       ============================================ -->
+  <section id="donate">
+    <div class="donate__glow"></div>
+    <div class="donate__inner">
+      <h2 class="donate__headline">הממלכה<br>נבנית ממך</h2>
+
+      <!-- Magnetic button with rotating circular text -->
+      <div class="donate__btn-wrap">
+        <div class="donate__halo"></div>
+        <button class="donate__btn" type="button" aria-label="תרומה בביט — העתקת מספר 053-310-4418">
+          <div class="donate__btn-inner">
+            <span class="donate__btn-label">לתרומה<br>בביט</span>
+          </div>
+          <svg class="donate__btn-ring" viewBox="0 0 240 240" aria-hidden="true">
+            <defs>
+              <path id="btn-circle" d="M120,120 m-104,0 a104,104 0 1,1 208,0 a104,104 0 1,1 -208,0"/>
+            </defs>
+            <text class="donate__btn-ring-text">
+              <textPath href="#btn-circle" textLength="653" lengthAdjust="spacing">תרמו בביט • תרמו בביט • תרמו בביט • תרמו בביט • תרמו בביט • תרמו בביט • </textPath>
+            </text>
+          </svg>
+        </button>
+        <!-- Burst canvas for gold particles on click -->
+        <canvas id="burst-canvas" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- Phone number display -->
+      <div class="donate__number-wrap">
+        <span class="donate__number" dir="ltr">053-310-4418</span>
+        <button class="donate__copy" type="button" aria-label="העתק מספר טלפון">העתק</button>
+      </div>
+
+      <p class="donate__instructions">פתחו את ביט ← העברת כסף ← הדביקו את המספר</p>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="donate__toast" role="status" aria-live="polite">מספר הביט הועתק — מעבירים אתכם לביט</div>
+  </section>
+
+  <!-- ============================================
+       07 — FOOTER
+       ============================================ -->
+  <footer id="footer">
+    <div class="footer__inner">
+      <span class="footer__name">הממלכה — דניאל ואלחנן</span>
+      <span class="footer__copy">© <span id="footer-year"></span></span>
+      <button class="footer__top" type="button" aria-label="חזרה למעלה">חזרה למעלה ↑</button>
+    </div>
+  </footer>
+
+
+  <!-- ============================================
+       SIGNATURE DETAILS
+       ============================================ -->
+  <div id="custom-cursor" class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"><span class="cursor__text">תרמו</span></div>
+  </div>
+
+  <a href="#donate" class="mobile-donate-bar" aria-hidden="true">
+    לתרומה בביט &larr;
+  </a>
+
+  <button class="scroll-crown" aria-label="חזרה למעלה">
+    <svg viewBox="0 0 100 100">
+      <clipPath id="crown-clip">
+        <path d="M10,70 L30,20 L50,50 L70,20 L90,70 Z" />
+      </clipPath>
+      <path d="M10,70 L30,20 L50,50 L70,20 L90,70 Z" fill="none" stroke="#C9A24A" stroke-width="4"/>
+      <rect x="0" y="0" width="100" height="100" fill="#C9A24A" clip-path="url(#crown-clip)" class="scroll-crown-fill" />
+    </svg>
+  </button>
+  <!-- ============================================
+       SCRIPTS — deferred, pinned CDN versions
+       ============================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="assets/main.js" defer></script>
+
+</body>
+</html>
