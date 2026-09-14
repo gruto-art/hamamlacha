@@ -919,6 +919,26 @@ body::before {
   text-align: right;
 }
 
+.activity__link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.75rem;
+  padding: 0.6rem 1.3rem;
+  font-family: var(--f-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--c-gold);
+  text-decoration: none;
+  border: 1px solid rgba(201, 162, 74, 0.5);
+  border-radius: 999px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.activity__link:hover,
+.activity__link:focus-visible {
+  background-color: var(--c-gold);
+  color: var(--c-ink);
+}
+
 /* SVG Chair illustration */
 .activity__illustration {
   flex-shrink: 0;

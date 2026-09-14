@@ -1,0 +1,139 @@
+/* ==========================================================================
+   הממלכה — GEMACH RULES PAGE (gemach.html)
+   Reuses the tokens, type and hairline vocabulary from style.css.
+   ========================================================================== */
+
+.gm-page a { color: inherit; text-decoration: none; }
+
+/* Top bar */
+.gm-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem var(--section-padding-x);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.15);
+}
+.gm-top__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--c-parchment);
+}
+.gm-top__brand svg { width: 30px; height: auto; margin-top: -4px; }
+.gm-top__back {
+  font-family: var(--f-ui);
+  font-size: 0.8rem;
+  color: var(--c-gold) !important;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.gm-top__back:hover { opacity: 1; }
+
+/* Page column */
+.gm {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+/* Heading */
+.gm-head { padding-block: clamp(3rem, 11vh, 6.5rem) clamp(2rem, 5vh, 3rem); }
+.gm-head__title {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  line-height: 0.9;
+  color: var(--c-parchment);
+}
+.gm-head__lead {
+  margin-top: 1.25rem;
+  max-width: 52ch;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.75;
+  opacity: 0.8;
+}
+
+/* Rules */
+.gm-rules { list-style: none; border-top: 1px solid rgba(201, 162, 74, 0.28); }
+.gm-rule {
+  display: grid;
+  grid-template-columns: clamp(2.75rem, 7vw, 4.5rem) 1fr;
+  column-gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  padding-block: clamp(1.1rem, 2.6vw, 1.6rem);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.28);
+}
+.gm-rule__num {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  line-height: 0.8;
+  color: var(--c-gold);
+  text-align: center;
+}
+.gm-rule__title {
+  font-family: var(--f-ui);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--c-gold-light);
+}
+.gm-rule__text {
+  margin-top: 0.3rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--c-parchment);
+  opacity: 0.9;
+}
+.gm-rule__text strong { font-weight: 400; color: var(--c-gold-light); }
+
+/* Closing */
+.gm-close { padding-block: clamp(2.5rem, 7vh, 4rem); }
+.gm-close__thanks { font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.75; opacity: 0.8; }
+.gm-close__sign {
+  margin-top: 0.75rem;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  line-height: 1;
+  color: var(--c-gold);
+}
+.gm-close__ps { margin-top: 1rem; font-family: var(--f-ui); font-size: 0.9rem; opacity: 0.7; }
+.gm-close__ps span { color: var(--c-gold); }
+
+/* Contact */
+.gm-contact {
+  padding-block: clamp(2.5rem, 7vh, 4rem) clamp(3rem, 9vh, 5rem);
+  border-top: 1px solid rgba(201, 162, 74, 0.28);
+}
+.gm-contact__grid { display: grid; gap: 2rem; }
+@media (min-width: 768px) {
+  .gm-contact__grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+}
+.gm-contact__item { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+.gm-contact__label { font-family: var(--f-ui); font-size: 0.8rem; letter-spacing: 0.08em; opacity: 0.6; }
+.gm-contact__value { transition: color 0.2s ease; overflow-wrap: anywhere; }
+.gm-contact__value:hover { color: var(--c-gold-light); }
+.gm-contact__value--phone {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 7vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--c-gold);
+}
+.gm-contact__value--mail {
+  font-family: var(--f-body);
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  color: var(--c-parchment);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.45);
+  padding-bottom: 0.15rem;
+}
+.gm-contact__note { font-family: var(--f-ui); font-size: 0.85rem; color: var(--c-gold-light); opacity: 0.85; }
