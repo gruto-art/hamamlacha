@@ -1142,7 +1142,11 @@ function initNotice() {
     // A donate click already reports itself — don't double-count it as a dismissal
     if (reason !== 'donate') track('donate_notice_close', { method: reason });
 
+    let torn = false;
     const done = () => {
+      if (torn) return;
+      torn = true;
+      gsap.set(notice, { opacity: 1 });
       notice.hidden = true;
       document.body.classList.remove('notice-open');
       if (lenis) lenis.start();
@@ -1150,12 +1154,11 @@ function initNotice() {
     };
 
     if (REDUCED_MOTION) { done(); return; }
-    gsap.to(notice, {
-      opacity: 0,
-      duration: 0.35,
-      ease: 'power2.inOut',
-      onComplete: () => { gsap.set(notice, { opacity: 1 }); done(); },
-    });
+    gsap.to(notice, { opacity: 0, duration: 0.35, ease: 'power2.inOut', onComplete: done });
+    // GSAP's ticker sleeps while the tab is backgrounded, which would strand the
+    // close mid-tween and leave the page scroll-locked. setTimeout still fires
+    // there, so it guarantees the teardown regardless.
+    setTimeout(done, 600);
   }
 
   cta?.addEventListener('click', () => {
