@@ -51,7 +51,42 @@
     </svg>
   </div>
 
-  
+  <!-- ============================================
+       NOTICE — entry donation appeal.
+       Hidden by default: JS reveals it once per
+       session after the preloader curtains lift,
+       so no-JS visitors never see it.
+       ============================================ -->
+  <div id="donate-notice" class="notice" hidden>
+    <div class="notice__scrim"></div>
+
+    <div class="notice__card" role="dialog" aria-modal="true" aria-labelledby="notice-headline" tabindex="-1">
+      <button class="notice__close" type="button" aria-label="סגירת המודעה">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6,6 L18,18 M18,6 L6,18" />
+        </svg>
+      </button>
+
+      <svg class="notice__crown" viewBox="0 0 200 140" aria-hidden="true">
+        <path d="M20,110 L50,25 L80,78 L100,12 L120,78 L150,25 L180,110" />
+        <path d="M16,122 L184,122" />
+      </svg>
+
+      <p class="notice__eyebrow">ע״ש יעקב ורבקה מלכה זיע״א</p>
+
+      <span class="notice__rule" aria-hidden="true"></span>
+
+      <h2 class="notice__headline" id="notice-headline">הממלכה<br>נבנית מכם</h2>
+      <p class="notice__body">נתינה לכל אדם, וגמ״ח כיסויי כיסאות לאירועים.</p>
+
+      <button class="notice__cta" type="button" aria-label="תרומה בביט — העתקת מספר 053-310-4418">לתרומה בביט</button>
+
+      <p class="notice__number" dir="ltr">053-310-4418</p>
+      <p class="notice__hint">פותחים את ביט ← העברת כסף ← מדביקים את המספר</p>
+    </div>
+  </div>
+  <!-- ---- end NOTICE ---- -->
+
 
   <!-- ============================================
        01 — HERO

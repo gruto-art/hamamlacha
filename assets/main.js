@@ -22,6 +22,11 @@ const COLORS = {
   goldLight: '#E8CF8A',
   oxblood: '#6B1E1E',
 };
+/* Entry donation notice — set to false to switch it off without touching
+   anything else. To remove it for good, delete the three blocks marked
+   "NOTICE" in index.html, assets/style.css and assets/main.js. */
+const NOTICE_ENABLED = true;
+
 const GOLD_PALETTE = ['#C9A24A', '#E8CF8A', '#D4AC5C', '#B8922F', '#F0D890'];
 
 /* --------------------------------------------------------------------------
@@ -92,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       initDonate();
       initFooter();
       initSignatures();
+      initNotice();
     } else {
       runPreloader(() => {
         initHeroParticles();
@@ -106,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initDonate();
         initFooter();
         initSignatures();
+        initNotice();
       });
     }
   });
@@ -1082,6 +1089,102 @@ function initActivity() {
     ease: 'power1.inOut'
   }, '-=0.5');
 }
+
+/* ==========================================================================
+   18. NOTICE — entry donation appeal
+   Shown once per session, after the preloader curtains have lifted so it
+   never competes with the crown reveal.
+   ========================================================================== */
+function initNotice() {
+  if (!NOTICE_ENABLED) return;
+
+  const notice = document.getElementById('donate-notice');
+  if (!notice) return;
+
+  // Once per session — a reload mid-visit shouldn't ask again
+  try {
+    if (sessionStorage.getItem('notice-seen')) return;
+    sessionStorage.setItem('notice-seen', '1');
+  } catch { /* private mode throws: show it anyway */ }
+
+  const scrim = notice.querySelector('.notice__scrim');
+  const card = notice.querySelector('.notice__card');
+  const closeBtn = notice.querySelector('.notice__close');
+  const cta = notice.querySelector('.notice__cta');
+
+  const lastFocus = document.activeElement;
+  let isOpen = false;
+
+  function open() {
+    notice.hidden = false;
+    isOpen = true;
+    document.body.classList.add('notice-open');
+    if (lenis) lenis.stop();
+
+    if (REDUCED_MOTION) {
+      gsap.set([scrim, card], { opacity: 1, y: 0 });
+    } else {
+      gsap.set(card, { y: 16 });
+      const tl = gsap.timeline();
+      tl.to(scrim, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+      tl.to(card, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }, '-=0.25');
+    }
+
+    // Focus the dialog itself, not the gold bar — focusing a button would
+    // paint the browser's default (blue) focus ring over the palette
+    card?.focus({ preventScroll: true });
+    track('donate_notice_view');
+  }
+
+  function close(reason) {
+    if (!isOpen) return;
+    isOpen = false;
+    // A donate click already reports itself — don't double-count it as a dismissal
+    if (reason !== 'donate') track('donate_notice_close', { method: reason });
+
+    const done = () => {
+      notice.hidden = true;
+      document.body.classList.remove('notice-open');
+      if (lenis) lenis.start();
+      if (lastFocus instanceof HTMLElement) lastFocus.focus({ preventScroll: true });
+    };
+
+    if (REDUCED_MOTION) { done(); return; }
+    gsap.to(notice, {
+      opacity: 0,
+      duration: 0.35,
+      ease: 'power2.inOut',
+      onComplete: () => { gsap.set(notice, { opacity: 1 }); done(); },
+    });
+  }
+
+  cta?.addEventListener('click', () => {
+    track('donate_notice_click');
+    handleDonate();          // copy → toast → Bit, the same flow as the finale
+    close('donate');
+  });
+
+  closeBtn?.addEventListener('click', () => close('x'));
+  scrim?.addEventListener('click', () => close('scrim'));
+
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen) return;
+    if (e.key === 'Escape') { close('escape'); return; }
+    // Keep focus inside the notice while it's up
+    if (e.key === 'Tab') {
+      const items = [closeBtn, cta].filter(Boolean); // DOM order
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // Let the hero settle before asking
+  gsap.delayedCall(REDUCED_MOTION ? 0.2 : 0.8, open);
+}
+/* ---- end NOTICE ---- */
 
 /* ==========================================================================
    17. RESIZE HANDLING
